@@ -1,70 +1,104 @@
-  /* styling for desktop */
+/* styling for desktop */
 
-  @media (min-width: 961px) {
+@media (min-width: 961px) {
 
-    .navbar {
-      margin-bottom: 3.5rem;
-    }
-
-    p {
-      margin-top: 2rem;
-      line-height: 1.4rem;
-    }
-
-    h2, p {
-      margin-left: 15rem;
-      margin-right: 15rem;
-    }
-
+  #navbar {
+    margin-bottom: 3.5rem;
   }
 
-
-  /* styling for mobile */
-
-  @media (max-width: 960px) {
-
-    h1 {
-      font-size: 1.6rem;
-    }
-
-    .navbar {
-      margin-bottom: 2.5rem;
-    }
-
-    p {
-      margin-top: 1.5rem;
-    }
-
-    h2, p {
-      margin-left: 2rem;
-      margin-right: 2rem;
-    }
-
+  p {
+    margin-top: 2rem;
+    line-height: 1.4rem;
   }
 
+  h2, p {
+    margin-left: 15rem;
+    margin-right: 15rem;
+  }
 
-  /* styling for all */
+}
+
+
+/* styling for mobile */
+
+@media (max-width: 960px) {
 
   h1 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin-top: 0rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.6rem;
   }
 
-  .header {
-    text-align: center;
-    color: #0719a6;
-    background-color: #fad02c;
+  #navbar {
+    margin-bottom: 2.5rem;
   }
 
-  .navbar {
-    word-spacing: 1rem;
-    text-align: center;
+  p {
+    margin-top: 1.5rem;
   }
 
-  body {
-    font-family: 'arial';
-    color: #282120;
-    background-color: #fcf7f0;
+  h2, p {
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
+
+}
+
+
+/* styling for body */
+
+h1 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}
+
+#title-wrap {
+  text-align: center;
+  background-color: #fad02c;
+}
+
+#title-wrap > h1 > a {
+  color: #0719a6;
+  text-decoration: none;
+}
+
+#navbar {
+  word-spacing: 1rem;
+  text-align: center;
+}
+
+a {
+  color: #0719a6;
+}
+
+body {
+  font-family: 'arial';
+  color: #282120;
+  background-color: #fcf7f0;
+  margin: 0.5rem;
+}
+
+
+/* styling for footer */
+
+#page-wrap {
+  min-height: calc(100vh - 1rem);
+}
+
+#content-wrap {
+  min-height: calc(100vh - 1rem - 2.5rem - 3.5rem);
+}
+
+#footer {
+  margin-top: 3.5rem;
+  background-color: #fad02c;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+/*h3 {
+  position: absolute;
+  bottom: 0rem;
+  height: 2.5rem;
+}*/
