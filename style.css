@@ -1,0 +1,70 @@
+  /* styling for desktop */
+
+  @media (min-width: 961px) {
+
+    .navbar {
+      margin-bottom: 3.5rem;
+    }
+
+    p {
+      margin-top: 2rem;
+      line-height: 1.4rem;
+    }
+
+    h2, p {
+      margin-left: 15rem;
+      margin-right: 15rem;
+    }
+
+  }
+
+
+  /* styling for mobile */
+
+  @media (max-width: 960px) {
+
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    .navbar {
+      margin-bottom: 2.5rem;
+    }
+
+    p {
+      margin-top: 1.5rem;
+    }
+
+    h2, p {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+  }
+
+
+  /* styling for all */
+
+  h1 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .header {
+    text-align: center;
+    color: #0719a6;
+    background-color: #fad02c;
+  }
+
+  .navbar {
+    word-spacing: 1rem;
+    text-align: center;
+  }
+
+  body {
+    font-family: 'arial';
+    color: #282120;
+    background-color: #fcf7f0;
+  }
