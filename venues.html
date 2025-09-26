@@ -6,7 +6,6 @@
   <title>Venue & Performance Report</title>
   <style>
     :root{
-      --muted:#6b7280;
       --gap:1rem;
     }
     body{
@@ -88,11 +87,10 @@
           <div class="col-4">
             <label for="attendance">How many people attended the show? (rough estimate)</label>
             <input id="attendance" name="attendance" type="number" min="0" />
-            <div class="muted">If unsure, ballpark — estimates are fine.</div>
           </div>
 
           <div class="col-4">
-            <label>Are you a touring musician passing through Minnesota?</label>
+            <label>Are you a touring musician passing through Chicago?</label>
             <div class="inline-row" role="radiogroup" aria-labelledby="touringLabel">
               <label class="radio-label"><input type="radio" name="touring" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="touring" value="no" checked /> No</label>
@@ -108,7 +106,7 @@
           <div class="col-6">
             <label for="paymentAmount">How much did your group get paid? (total take-home, incl. tips)</label>
             <input id="paymentAmount" name="paymentAmount" type="number" min="0" step="0.01" />
-            <div class="muted">Enter number only; cents allowed.</div>
+            <!-- <div class="muted">Enter number only; cents allowed.</div> -->
           </div>
 
           <div class="col-6">
@@ -121,7 +119,6 @@
               <option value="2">2 — Poor</option>
               <option value="1">1 — Very poor</option>
             </select>
-            <div class="muted">Base on fairness and timeliness of payment.</div>
           </div>
 
           <div class="col-12">
@@ -173,7 +170,6 @@
           <div class="col-6">
             <label for="combinedPayout">Combined payout for all groups at this show</label>
             <input id="combinedPayout" name="combinedPayout" type="number" min="0" step="0.01" />
-            <div class="muted">Either total cut of ticket sales given to bands, or total guarantee amount split among bands.</div>
           </div>
         </div>
       </fieldset>
