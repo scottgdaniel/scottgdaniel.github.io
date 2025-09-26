@@ -6,13 +6,12 @@
   <title>Venue & Performance Report</title>
   <style>
     :root{
-      --bg:#f7f8fb; --card:#ffffff; --muted:#6b7280; --accent:#2563eb;
+      --muted:#6b7280;
       --gap:1rem;
     }
     body{
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#eef2ff 0%,#f7f8fb 100%);
-      margin:0; padding:2rem; color:#111827;
+      /* background: linear-gradient(180deg,#eef2ff 0%,#f7f8fb 100%); */
+      margin:0; padding:2rem;
       display:flex; justify-content:center;
     }
     .container{
@@ -48,9 +47,8 @@
     .small{ font-size:0.9rem; color:var(--muted); }
     .actions{ display:flex; gap:0.75rem; margin-top:0.5rem; }
     button{ padding:0.6rem 0.85rem; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
-    button.primary{ background:var(--accent); color:#fff; }
-    button.ghost{ background:transparent; border:1px solid #e6e9ef; color:#111827; }
-    .help{ font-size:0.85rem; color:var(--muted); }
+    button.primary{ background:var(--accent); }
+    button.ghost{ background:transparent; border:1px solid #e6e9ef; }
     .rating-row{ display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
     .radio-label{ display:inline-flex; align-items:center; gap:0.35rem; padding:0.25rem 0.4rem; border-radius:6px; cursor:pointer; }
     @media (max-width:720px){
@@ -61,7 +59,6 @@
 <body>
   <main class="container" role="main" aria-labelledby="formTitle">
     <h1 id="formTitle">Venue & Performance Report</h1>
-    <p class="lead">Collect information about a particular performance to track payouts, safety, hospitality, and communication.</p>
 
     <form id="reportForm" autocomplete="on" novalidate>
       <!-- BASIC INFO -->
@@ -69,29 +66,28 @@
         <legend>Basic Info</legend>
         <div class="grid">
           <div class="col-6">
-            <label for="venueName">Venue Name <span class="small" aria-hidden="true">*</span></label>
-            <input id="venueName" name="venueName" type="text" required placeholder="Ex: The Icehouse" />
-            <div class="help">Put the venue's public name (required).</div>
+            <label for="venueName">Venue Name (required) <span class="small" aria-hidden="true">*</span></label>
+            <input id="venueName" name="venueName" type="text" required />
           </div>
 
           <div class="col-3">
             <label for="performanceDate">Date of Performance <span class="small" aria-hidden="true">*</span></label>
-            <input id="performanceDate" name="performanceDate" type="date" required />
+            <input id="performanceDate" name="performanceDate" type="date" />
           </div>
 
           <div class="col-3">
             <label for="numActs">How many bands/acts were on the bill?</label>
-            <input id="numActs" name="numActs" type="number" min="1" placeholder="e.g., 4" />
+            <input id="numActs" name="numActs" type="number" min="1" />
           </div>
 
           <div class="col-4">
             <label for="bandSize">How many members were in your band?</label>
-            <input id="bandSize" name="bandSize" type="number" min="1" placeholder="e.g., 3" />
+            <input id="bandSize" name="bandSize" type="number" min="1" />
           </div>
 
           <div class="col-4">
             <label for="attendance">How many people attended the show? (rough estimate)</label>
-            <input id="attendance" name="attendance" type="number" min="0" placeholder="e.g., 120" />
+            <input id="attendance" name="attendance" type="number" min="0" />
             <div class="muted">If unsure, ballpark — estimates are fine.</div>
           </div>
 
@@ -111,7 +107,7 @@
         <div class="grid">
           <div class="col-6">
             <label for="paymentAmount">How much did your group get paid? (total take-home, incl. tips)</label>
-            <input id="paymentAmount" name="paymentAmount" type="number" min="0" step="0.01" placeholder="Total in USD (e.g., 300.00)" />
+            <input id="paymentAmount" name="paymentAmount" type="number" min="0" step="0.01" />
             <div class="muted">Enter number only; cents allowed.</div>
           </div>
 
@@ -130,7 +126,7 @@
 
           <div class="col-12">
             <label for="paymentNotes">Anything specific you'd like to share regarding payment?</label>
-            <textarea id="paymentNotes" name="paymentNotes" placeholder="E.g., paid by cash at load-out, delayed bank transfer, got full guarantee, etc."></textarea>
+            <textarea id="paymentNotes" name="paymentNotes"></textarea>
           </div>
 
           <div class="col-6">
@@ -148,7 +144,7 @@
 
           <div class="col-6" id="paymentStructureOtherWrap" style="display:none">
             <label for="paymentStructureOther">If Other—please describe</label>
-            <input id="paymentStructureOther" name="paymentStructureOther" type="text" placeholder="Describe the payment arrangement" />
+            <input id="paymentStructureOther" name="paymentStructureOther" type="text" />
           </div>
 
           <div class="col-6">
@@ -162,7 +158,7 @@
 
           <div class="col-6">
             <label for="ticketPrice">How much were tickets? (face value)</label>
-            <input id="ticketPrice" name="ticketPrice" type="number" min="0" step="0.01" placeholder="e.g., 10" />
+            <input id="ticketPrice" name="ticketPrice" type="number" min="0" step="0.01" />
           </div>
 
           <div class="col-6">
@@ -176,7 +172,7 @@
 
           <div class="col-6">
             <label for="combinedPayout">Combined payout for all groups at this show</label>
-            <input id="combinedPayout" name="combinedPayout" type="number" min="0" step="0.01" placeholder="Total venue payout (e.g., 1200.00)" />
+            <input id="combinedPayout" name="combinedPayout" type="number" min="0" step="0.01" />
             <div class="muted">Either total cut of ticket sales given to bands, or total guarantee amount split among bands.</div>
           </div>
         </div>
@@ -200,7 +196,7 @@
 
           <div class="col-6">
             <label for="managementNotes">Anything specific you'd like to share?</label>
-            <input id="managementNotes" name="managementNotes" type="text" placeholder="E.g., clear load-in times, gave hospitality info, etc." />
+            <input id="managementNotes" name="managementNotes" type="text" />
           </div>
 
           <div class="col-4">
@@ -214,7 +210,7 @@
 
           <div class="col-4" id="merchPercentWrap" style="display:none">
             <label for="merchPercent">If yes, what percent/amount?</label>
-            <input id="merchPercent" name="merchPercent" type="text" placeholder="e.g., 10% or $20 flat" />
+            <input id="merchPercent" name="merchPercent" type="text" />
           </div>
 
           <div class="col-4">
@@ -252,7 +248,7 @@
 
           <div class="col-6">
             <label for="whoBooked">Who from the venue booked your show?</label>
-            <input id="whoBooked" name="whoBooked" type="text" placeholder="Name and/or role (e.g., Jane — house manager)" />
+            <input id="whoBooked" name="whoBooked" type="text" />
           </div>
 
           <div class="col-6">
@@ -284,7 +280,7 @@
 
           <div class="col-6">
             <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
-            <input id="safetyNotes" name="safetyNotes" type="text" placeholder="E.g., bouncers stepped in, crowd issues, etc." />
+            <input id="safetyNotes" name="safetyNotes" type="text" />
           </div>
 
           <div class="col-4">
@@ -324,7 +320,7 @@
               <option value="1">1 — Very poor</option>
             </select>
             <label for="accessibilityNotes" style="margin-top:0.6rem; display:block;">Anything specific you'd like to share regarding accessibility?</label>
-            <textarea id="accessibilityNotes" name="accessibilityNotes" placeholder="E.g., ramp present, tight doorway, no masks available, hearing loop, etc."></textarea>
+            <textarea id="accessibilityNotes" name="accessibilityNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -347,12 +343,12 @@
 
           <div class="col-6">
             <label for="soundNotes">Anything specific regarding venue sound?</label>
-            <input id="soundNotes" name="soundNotes" type="text" placeholder="E.g., feedback issues, great monitors, loud house PA, etc." />
+            <input id="soundNotes" name="soundNotes" type="text"/>
           </div>
 
           <div class="col-6">
             <label for="houseGearNotes">Any notes on the condition of the house gear?</label>
-            <input id="houseGearNotes" name="houseGearNotes" type="text" placeholder="E.g., mics old, DI missing, amp available, etc." />
+            <input id="houseGearNotes" name="houseGearNotes" type="text" />
           </div>
 
           <div class="col-6">
@@ -383,12 +379,12 @@
 
           <div class="col-6">
             <label for="hospitalityNotes">Anything specific you'd like to share regarding hospitality?</label>
-            <input id="hospitalityNotes" name="hospitalityNotes" type="text" placeholder="E.g., provided dinner, not enough drink tickets, private green room, etc." />
+            <input id="hospitalityNotes" name="hospitalityNotes" type="text" />
           </div>
 
           <div class="col-4">
             <label for="drinkTickets">How many drink tickets per band member?</label>
-            <input id="drinkTickets" name="drinkTickets" type="number" min="0" placeholder="e.g., 2" />
+            <input id="drinkTickets" name="drinkTickets" type="number" min="0" />
           </div>
 
           <div class="col-4">
@@ -418,7 +414,7 @@
 
           <div class="col-6">
             <label for="compTickets">How many comp tickets / guest list spots were you given?</label>
-            <input id="compTickets" name="compTickets" type="number" min="0" placeholder="e.g., 4" />
+            <input id="compTickets" name="compTickets" type="number" min="0" />
           </div>
         </div>
       </fieldset>
@@ -441,7 +437,7 @@
 
           <div class="col-6">
             <label for="overallNotes">Anything you'd like to share about your overall experience?</label>
-            <input id="overallNotes" name="overallNotes" type="text" placeholder="Summary, standout positives or negatives" />
+            <input id="overallNotes" name="overallNotes" type="text" />
           </div>
 
           <div class="col-6">
@@ -470,17 +466,17 @@
         <div class="grid">
           <div class="col-4">
             <label for="reporterName">Your Name</label>
-            <input id="reporterName" name="reporterName" type="text" placeholder="Optional" />
+            <input id="reporterName" name="reporterName" type="text" />
           </div>
 
           <div class="col-4">
             <label for="reporterEmail">Email</label>
-            <input id="reporterEmail" name="reporterEmail" type="email" placeholder="you@example.com" />
+            <input id="reporterEmail" name="reporterEmail" type="email" />
           </div>
 
           <div class="col-4">
             <label for="reporterPhone">Phone</label>
-            <input id="reporterPhone" name="reporterPhone" type="tel" placeholder="Optional" />
+            <input id="reporterPhone" name="reporterPhone" type="tel" />
           </div>
 
           <div class="col-12">
@@ -489,7 +485,6 @@
               <label class="radio-label"><input type="radio" name="canContact" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
             </div>
-            <div class="muted">Providing contact details is optional — you'll only be contacted if you opt in.</div>
           </div>
         </div>
       </fieldset>
@@ -500,7 +495,6 @@
       </div>
     </form>
 
-    <p class="muted" style="margin-top:1rem;">Note: This form collects performance details and personal contact info (optional). Use responsibly.</p>
   </main>
 
   <script>
