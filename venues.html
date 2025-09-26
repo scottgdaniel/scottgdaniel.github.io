@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Venue & Performance Report</title>
+  <style>
+    :root{
+      --bg:#f7f8fb; --card:#ffffff; --muted:#6b7280; --accent:#2563eb;
+      --gap:1rem;
+    }
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#eef2ff 0%,#f7f8fb 100%);
+      margin:0; padding:2rem; color:#111827;
+      display:flex; justify-content:center;
+    }
+    .container{
+      width:100%; max-width:900px; background:var(--card);
+      border-radius:12px; box-shadow:0 8px 30px rgba(2,6,23,0.08);
+      padding:1.5rem;
+    }
+    h1{ margin:0 0 0.25rem 0; font-size:1.25rem; }
+    p.lead{ margin:0 0 1.25rem 0; color:var(--muted); font-size:0.95rem; }
+    fieldset{
+      border:1px solid #e6e9ef; padding:1rem; border-radius:8px;
+      margin-bottom:1rem; background:#fff;
+    }
+    legend{ font-weight:600; padding:0 0.5rem; }
+    .grid{
+      display:grid; gap:var(--gap);
+      grid-template-columns: repeat(12,1fr);
+      align-items:start;
+    }
+    label{ display:block; font-size:0.95rem; margin-bottom:0.35rem; }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select, textarea {
+      width:100%;
+      padding:0.5rem 0.6rem; border:1px solid #d1d5db; border-radius:6px;
+      background:transparent; font-size:0.95rem;
+    }
+    textarea{ min-height:100px; resize:vertical; }
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    .col-3{ grid-column: span 3; }
+    .col-12{ grid-column: span 12; }
+    .muted{ color:var(--muted); font-size:0.9rem; margin-top:0.25rem; }
+    .inline-row{ display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; }
+    .small{ font-size:0.9rem; color:var(--muted); }
+    .actions{ display:flex; gap:0.75rem; margin-top:0.5rem; }
+    button{ padding:0.6rem 0.85rem; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+    button.primary{ background:var(--accent); color:#fff; }
+    button.ghost{ background:transparent; border:1px solid #e6e9ef; color:#111827; }
+    .help{ font-size:0.85rem; color:var(--muted); }
+    .rating-row{ display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+    .radio-label{ display:inline-flex; align-items:center; gap:0.35rem; padding:0.25rem 0.4rem; border-radius:6px; cursor:pointer; }
+    @media (max-width:720px){
+      .col-6, .col-4, .col-3{ grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="formTitle">
+    <h1 id="formTitle">Venue & Performance Report</h1>
+    <p class="lead">Collect information about a particular performance to track payouts, safety, hospitality, and communication.</p>
+
+    <form id="reportForm" autocomplete="on" novalidate>
+      <!-- BASIC INFO -->
+      <fieldset>
+        <legend>Basic Info</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="venueName">Venue Name <span class="small" aria-hidden="true">*</span></label>
+            <input id="venueName" name="venueName" type="text" required placeholder="Ex: The Icehouse" />
+            <div class="help">Put the venue's public name (required).</div>
+          </div>
+
+          <div class="col-3">
+            <label for="performanceDate">Date of Performance <span class="small" aria-hidden="true">*</span></label>
+            <input id="performanceDate" name="performanceDate" type="date" required />
+          </div>
+
+          <div class="col-3">
+            <label for="numActs">How many bands/acts were on the bill?</label>
+            <input id="numActs" name="numActs" type="number" min="1" placeholder="e.g., 4" />
+          </div>
+
+          <div class="col-4">
+            <label for="bandSize">How many members were in your band?</label>
+            <input id="bandSize" name="bandSize" type="number" min="1" placeholder="e.g., 3" />
+          </div>
+
+          <div class="col-4">
+            <label for="attendance">How many people attended the show? (rough estimate)</label>
+            <input id="attendance" name="attendance" type="number" min="0" placeholder="e.g., 120" />
+            <div class="muted">If unsure, ballpark — estimates are fine.</div>
+          </div>
+
+          <div class="col-4">
+            <label>Are you a touring musician passing through Minnesota?</label>
+            <div class="inline-row" role="radiogroup" aria-labelledby="touringLabel">
+              <label class="radio-label"><input type="radio" name="touring" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="touring" value="no" checked /> No</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- PAYMENT -->
+      <fieldset>
+        <legend>Payment</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="paymentAmount">How much did your group get paid? (total take-home, incl. tips)</label>
+            <input id="paymentAmount" name="paymentAmount" type="number" min="0" step="0.01" placeholder="Total in USD (e.g., 300.00)" />
+            <div class="muted">Enter number only; cents allowed.</div>
+          </div>
+
+          <div class="col-6">
+            <label for="paymentRating">Payment Rating</label>
+            <select id="paymentRating" name="paymentRating" aria-label="Payment Rating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent (fair & prompt)</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+            <div class="muted">Base on fairness and timeliness of payment.</div>
+          </div>
+
+          <div class="col-12">
+            <label for="paymentNotes">Anything specific you'd like to share regarding payment?</label>
+            <textarea id="paymentNotes" name="paymentNotes" placeholder="E.g., paid by cash at load-out, delayed bank transfer, got full guarantee, etc."></textarea>
+          </div>
+
+          <div class="col-6">
+            <label for="paymentStructure">What was the payment structure of the show?</label>
+            <select id="paymentStructure" name="paymentStructure">
+              <option value="">-- Choose --</option>
+              <option value="guarantee">Guarantee (flat fee)</option>
+              <option value="door-split">Door split (percentage of tickets)</option>
+              <option value="donation">Donation / tip jar</option>
+              <option value="door+guarantee">Guarantee + door split</option>
+              <option value="tips-only">Tips only</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-6" id="paymentStructureOtherWrap" style="display:none">
+            <label for="paymentStructureOther">If Other—please describe</label>
+            <input id="paymentStructureOther" name="paymentStructureOther" type="text" placeholder="Describe the payment arrangement" />
+          </div>
+
+          <div class="col-6">
+            <label>Did the venue give you a breakdown of finances after the show?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="breakdown" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="breakdown" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="breakdown" value="partial" /> Partial / unclear</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="ticketPrice">How much were tickets? (face value)</label>
+            <input id="ticketPrice" name="ticketPrice" type="number" min="0" step="0.01" placeholder="e.g., 10" />
+          </div>
+
+          <div class="col-6">
+            <label>Were you paid on the day of the show?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="paidDay" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="paidDay" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="paidDay" value="partial" /> Partially</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="combinedPayout">Combined payout for all groups at this show</label>
+            <input id="combinedPayout" name="combinedPayout" type="number" min="0" step="0.01" placeholder="Total venue payout (e.g., 1200.00)" />
+            <div class="muted">Either total cut of ticket sales given to bands, or total guarantee amount split among bands.</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- MANAGEMENT & COMMUNICATION -->
+      <fieldset>
+        <legend>Management & Communication</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="managementRating">Management/Communication Rating</label>
+            <select id="managementRating" name="managementRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="managementNotes">Anything specific you'd like to share?</label>
+            <input id="managementNotes" name="managementNotes" type="text" placeholder="E.g., clear load-in times, gave hospitality info, etc." />
+          </div>
+
+          <div class="col-4">
+            <label>Was there a merch cut?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="merchCut" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="merchCut" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="merchCut" value="negotiable" /> Negotiated</label>
+            </div>
+          </div>
+
+          <div class="col-4" id="merchPercentWrap" style="display:none">
+            <label for="merchPercent">If yes, what percent/amount?</label>
+            <input id="merchPercent" name="merchPercent" type="text" placeholder="e.g., 10% or $20 flat" />
+          </div>
+
+          <div class="col-4">
+            <label>Did the venue promote the show in any way you are aware of?</label>
+            <div class="inline-row" style="flex-direction:column;">
+              <label><input type="checkbox" name="promotion" value="social" /> Social media</label>
+              <label><input type="checkbox" name="promotion" value="email" /> Email list</label>
+              <label><input type="checkbox" name="promotion" value="flyers" /> Flyers/posters</label>
+              <label><input type="checkbox" name="promotion" value="radio" /> Radio</label>
+              <label><input type="checkbox" name="promotion" value="none" /> None that I saw</label>
+              <label><input type="checkbox" name="promotion" value="other" id="promoOtherChk" /> Other</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label>Was there a proximity or radius clause?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="radiusClause" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="radiusClause" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="radiusClause" value="unknown" /> Unsure</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="howBooked">How did you book this show?</label>
+            <select id="howBooked" name="howBooked">
+              <option value="">-- Select --</option>
+              <option value="agent">Agent</option>
+              <option value="promoter">Promoter</option>
+              <option value="direct">Direct w/ venue</option>
+              <option value="band-booked">Booked by band</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="whoBooked">Who from the venue booked your show?</label>
+            <input id="whoBooked" name="whoBooked" type="text" placeholder="Name and/or role (e.g., Jane — house manager)" />
+          </div>
+
+          <div class="col-6">
+            <label>Did the venue communicate ticket counts going into the night?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="ticketCounts" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="ticketCounts" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="ticketCounts" value="partial" /> Partial</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- SAFETY -->
+      <fieldset>
+        <legend>Safety</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="safetyRating">Safety Rating</label>
+            <select id="safetyRating" name="safetyRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Very safe</option>
+              <option value="4">4 — Mostly safe</option>
+              <option value="3">3 — Mixed</option>
+              <option value="2">2 — Some concerns</option>
+              <option value="1">1 — Unsafe</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
+            <input id="safetyNotes" name="safetyNotes" type="text" placeholder="E.g., bouncers stepped in, crowd issues, etc." />
+          </div>
+
+          <div class="col-4">
+            <label>Was there venue security?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="security" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="security" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="security" value="partial" /> Partial / inconsistent</label>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <label>Did you feel comfortable at this venue?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="feltComfortable" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="feltComfortable" value="no" /> No</label>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <label>Did you experience discrimination at this venue?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="discrimination" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="discrimination" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="discrimination" value="preferNot" /> Prefer not to say</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="accessibilityRating">Accessibility Rating (parking, wheelchair access, masks/earplugs, nursing room, etc.)</label>
+            <select id="accessibilityRating" name="accessibilityRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+            <label for="accessibilityNotes" style="margin-top:0.6rem; display:block;">Anything specific you'd like to share regarding accessibility?</label>
+            <textarea id="accessibilityNotes" name="accessibilityNotes" placeholder="E.g., ramp present, tight doorway, no masks available, hearing loop, etc."></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- SOUND -->
+      <fieldset>
+        <legend>Sound</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="soundRating">Please rate this venue on sound (on and off stage)</label>
+            <select id="soundRating" name="soundRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="soundNotes">Anything specific regarding venue sound?</label>
+            <input id="soundNotes" name="soundNotes" type="text" placeholder="E.g., feedback issues, great monitors, loud house PA, etc." />
+          </div>
+
+          <div class="col-6">
+            <label for="houseGearNotes">Any notes on the condition of the house gear?</label>
+            <input id="houseGearNotes" name="houseGearNotes" type="text" placeholder="E.g., mics old, DI missing, amp available, etc." />
+          </div>
+
+          <div class="col-6">
+            <label>Did you feel respected by your sound tech(s)?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="respectedByTech" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="respectedByTech" value="no" /> No</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- HOSPITALITY -->
+      <fieldset>
+        <legend>Hospitality</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="hospitalityRating">How would you rate this venue's hospitality?</label>
+            <select id="hospitalityRating" name="hospitalityRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent (food/drink/private space)</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="hospitalityNotes">Anything specific you'd like to share regarding hospitality?</label>
+            <input id="hospitalityNotes" name="hospitalityNotes" type="text" placeholder="E.g., provided dinner, not enough drink tickets, private green room, etc." />
+          </div>
+
+          <div class="col-4">
+            <label for="drinkTickets">How many drink tickets per band member?</label>
+            <input id="drinkTickets" name="drinkTickets" type="number" min="0" placeholder="e.g., 2" />
+          </div>
+
+          <div class="col-4">
+            <label>Was there a green room?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="greenRoom" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="greenRoom" value="no" checked /> No</label>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <label>Was there gear storage?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="gearStorage" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="gearStorage" value="no" checked /> No</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label>Were you given food / a meal?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="givenFood" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="givenFood" value="no" checked /> No</label>
+              <label class="radio-label"><input type="radio" name="givenFood" value="partial" /> Partial / snacks only</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="compTickets">How many comp tickets / guest list spots were you given?</label>
+            <input id="compTickets" name="compTickets" type="number" min="0" placeholder="e.g., 4" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- OVERALL -->
+      <fieldset>
+        <legend>Overall</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label for="overallRating">Overall rating</label>
+            <select id="overallRating" name="overallRating">
+              <option value="">-- Select rating --</option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="overallNotes">Anything you'd like to share about your overall experience?</label>
+            <input id="overallNotes" name="overallNotes" type="text" placeholder="Summary, standout positives or negatives" />
+          </div>
+
+          <div class="col-6">
+            <label>Would you play this venue again?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="playAgain" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="playAgain" value="no" /> No</label>
+              <label class="radio-label"><input type="radio" name="playAgain" value="maybe" checked /> Maybe</label>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label>Would you recommend this venue to another performer?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="recommend" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="recommend" value="no" /> No</label>
+              <label class="radio-label"><input type="radio" name="recommend" value="maybe" checked /> Maybe</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- PERSONAL INFO (optional) -->
+      <fieldset>
+        <legend>Personal Info (optional)</legend>
+        <div class="grid">
+          <div class="col-4">
+            <label for="reporterName">Your Name</label>
+            <input id="reporterName" name="reporterName" type="text" placeholder="Optional" />
+          </div>
+
+          <div class="col-4">
+            <label for="reporterEmail">Email</label>
+            <input id="reporterEmail" name="reporterEmail" type="email" placeholder="you@example.com" />
+          </div>
+
+          <div class="col-4">
+            <label for="reporterPhone">Phone</label>
+            <input id="reporterPhone" name="reporterPhone" type="tel" placeholder="Optional" />
+          </div>
+
+          <div class="col-12">
+            <label>Can we reach out with more questions?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="canContact" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
+            </div>
+            <div class="muted">Providing contact details is optional — you'll only be contacted if you opt in.</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" class="primary">Submit Report</button>
+        <button type="reset" class="ghost">Reset</button>
+      </div>
+    </form>
+
+    <p class="muted" style="margin-top:1rem;">Note: This form collects performance details and personal contact info (optional). Use responsibly.</p>
+  </main>
+
+  <script>
+    // small client-side interactions for conditional fields
+    (function(){
+      const paymentStructure = document.getElementById('paymentStructure');
+      const paymentOtherWrap = document.getElementById('paymentStructureOtherWrap');
+
+      const merchRadios = document.getElementsByName('merchCut');
+      const merchWrap = document.getElementById('merchPercentWrap');
+
+      const promoOtherChk = document.getElementById('promoOtherChk');
+
+      function togglePaymentOther(){
+        if(paymentStructure && paymentStructure.value === 'other'){
+          paymentOtherWrap.style.display = '';
+        } else {
+          paymentOtherWrap.style.display = 'none';
+        }
+      }
+      paymentStructure && paymentStructure.addEventListener('change', togglePaymentOther);
+      togglePaymentOther();
+
+      function toggleMerchPercent(){
+        let chosen = Array.from(merchRadios).find(r=>r.checked);
+        if(chosen && chosen.value === 'yes'){
+          merchWrap.style.display = '';
+        } else {
+          merchWrap.style.display = 'none';
+        }
+      }
+      merchRadios.forEach(r=>r.addEventListener('change', toggleMerchPercent));
+      toggleMerchPercent();
+
+      // promo "other" toggling (no extra input in this version — could be extended)
+      promoOtherChk && promoOtherChk.addEventListener('change', function(){
+        if(this.checked){
+          // if you'd like a text input to appear, you can implement here.
+        }
+      });
+
+      // basic submit handler (prevent actual send for demo)
+      document.getElementById('reportForm').addEventListener('submit', function(e){
+        // Allow native validation to run first
+        if(!this.checkValidity()){
+          // let browser show validation UI
+          return;
+        }
+
+        e.preventDefault();
+        // collect form data into an object (example)
+        const fd = new FormData(this);
+        const obj = {};
+        for(const [k,v] of fd.entries()){
+          // for repeated checkboxes (promotion), accumulate
+          if(obj[k] !== undefined){
+            if(!Array.isArray(obj[k])) obj[k] = [obj[k]];
+            obj[k].push(v);
+          } else {
+            obj[k] = v;
+          }
+        }
+
+        // Convert radio groups that may be missing (normal FormData handles it)
+        // For demo: show JSON in a confirm and then clear form
+        const pretty = JSON.stringify(obj, null, 2);
+        if(confirm("Submit the following report?\n\n" + pretty.slice(0, 200) + (pretty.length>200 ? "\n\n(Truncated in preview)":""))){
+          // TODO: replace with actual submit (AJAX / form action)
+          alert('Report prepared. Replace this alert with code to send the form to your server.');
+          this.reset();
+        }
+      }, false);
+    })();
+  </script>
+</body>
+</html>
