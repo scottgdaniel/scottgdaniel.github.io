@@ -1,13 +1,15 @@
 <!--
 TODO:
+add form type & timestamp
 conform to working doc
-no submit button on mobile
-make sure id duplication in hidden main sections doesn't cause problems
+keep Render instance alive
 ---
+replicate many-submissions issue (Render instance starting up?)
+weird submit button on mobile
 find-and-replace "report card"
 add "form type" column
+make sure id duplication in hidden main sections doesn't cause problems
 add spreadsheet column names, prettify spreadsheet writes if needed
-address Render's "Your free instance will spin down with inactivity"
 use POST (GET string will get pretty long due to textboxes)
 novalidate
 promoOtherChk
@@ -179,11 +181,6 @@ add "request an interview" option?
             <!-- <div class="muted">Enter number only; cents allowed.</div> -->
           </div>
 
-          <div class="col-12">
-            <label for="paymentNotes">Anything specific you'd like to share regarding payment?</label>
-            <textarea id="paymentNotes" name="paymentNotes"></textarea>
-          </div>
-
           <div class="col-6">
             <label for="paymentStructure">What was the payment structure of the show?</label>
             <input id="paymentStructure" name="paymentStructure" type="text"></input>
@@ -208,18 +205,28 @@ add "request an interview" option?
             <input id="ticketPrice" name="ticketPrice" type="text" />
           </div>
 
-          <div class="col-6">
+<!--           <div class="col-6">
             <label>Were you paid on the day of the show?</label>
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="paidDay" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="paidDay" value="no" checked /> No</label>
               <label class="radio-label"><input type="radio" name="paidDay" value="partial" /> Partially</label>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-6">
             <label for="combinedPayout">Combined payout for all groups at this show</label>
             <input id="combinedPayout" name="combinedPayout" type="text" />
+          </div>
+
+          <div class="col-6">
+            <label for="paymentTiming">When were you paid?</label>
+            <input id="paymentTiming" name="paymentTiming" type="text" />
+          </div>
+
+          <div class="col-12">
+            <label for="paymentNotes">Anything specific you'd like to share regarding payment? <em>(e.g. Did you request a certain fee/split from the venue at any point? Did the payout match your expectations and/or the venue's promises?)</em></label>
+            <textarea id="paymentNotes" name="paymentNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -240,19 +247,19 @@ add "request an interview" option?
             </select>
           </div>
 
-          <div class="col-6">
-            <label for="managementNotes">Anything specific you'd like to share?</label>
-            <textarea id="managementNotes" name="managementNotes"></textarea>
-          </div>
-
-          <div class="col-4">
+<!--           <div class="col-4">
             <label>Was there a merch cut?</label>
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="merchCut" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="merchCut" value="no" checked /> No</label>
               <label class="radio-label"><input type="radio" name="merchCut" value="negotiable" /> Negotiated</label>
             </div>
-          </div>
+          </div> -->
+
+          <div class="col-6">
+            <label for="merchCut">Was there a merch cut? If so, what was it?</label>
+            <input id="merchCut" name="merchCut" type="text" />
+          </div>          
 
           <div class="col-4" id="merchPercentWrap" style="display:none">
             <label for="merchPercent">What percent/amount?</label>
@@ -271,13 +278,18 @@ add "request an interview" option?
             </div>
           </div>
 
-          <div class="col-6">
+<!--           <div class="col-6">
             <label>Was there a proximity or radius clause?</label>
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="radiusClause" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="radiusClause" value="no" checked /> No</label>
               <label class="radio-label"><input type="radio" name="radiusClause" value="unknown" /> Unsure</label>
             </div>
+          </div> -->
+
+          <div class="col-6">
+            <label for="radiusClause">Was there a proximity/radius clause? If so, what was it?</label>
+            <input id="radiusClause" name="radiusClause" type="text" />
           </div>
 
           <div class="col-6">
@@ -302,8 +314,13 @@ add "request an interview" option?
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="ticketCounts" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="ticketCounts" value="no" checked /> No</label>
-              <label class="radio-label"><input type="radio" name="ticketCounts" value="partial" /> Partial</label>
+              <label class="radio-label"><input type="radio" name="ticketCounts" value="partial" /> Partial / unclear</label>
             </div>
+          </div>
+
+          <div class="col-6">
+            <label for="managementNotes">Anything specific you'd like to share regarding venue management? <em>(e.g. What were the name(s) of the management-side venue staff you communicated with?)</em></label>
+            <textarea id="managementNotes" name="managementNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -324,9 +341,16 @@ add "request an interview" option?
             </select>
           </div>
 
-          <div class="col-6">
-            <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
-            <textarea id="safetyNotes" name="safetyNotes"></textarea>
+          <div class="col-12">
+            <label for="accessibilityRating">Accessibility Rating (parking, wheelchair access, masks/earplugs, nursing room, etc.)</label>
+            <select id="accessibilityRating" name="accessibilityRating">
+              <option value=""> </option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
           </div>
 
           <div class="col-4">
@@ -351,24 +375,17 @@ add "request an interview" option?
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="discrimination" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="discrimination" value="no" checked /> No</label>
-              <label class="radio-label"><input type="radio" name="discrimination" value="preferNot" /> Prefer not to say</label>
+              <!-- <label class="radio-label"><input type="radio" name="discrimination" value="preferNot" /> Prefer not to say</label> -->
             </div>
           </div>
 
-          <div class="col-12">
-            <label for="accessibilityRating">Accessibility Rating (parking, wheelchair access, masks/earplugs, nursing room, etc.)</label>
-            <select id="accessibilityRating" name="accessibilityRating">
-              <option value=""> </option>
-              <option value="5">5 — Excellent</option>
-              <option value="4">4 — Good</option>
-              <option value="3">3 — Okay</option>
-              <option value="2">2 — Poor</option>
-              <option value="1">1 — Very poor</option>
-            </select>
+          <div class="col-6">
+            <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
+            <textarea id="safetyNotes" name="safetyNotes"></textarea>
           </div>
 
           <div>
-            <label for="accessibilityNotes" style="margin-top:0.6rem; display:block;">Anything specific you'd like to share regarding accessibility?</label>
+            <label for="accessibilityNotes">Anything specific you'd like to share regarding accessibility? <em>(e.g. parking, access from public transit)</em></label>
             <textarea id="accessibilityNotes" name="accessibilityNotes"></textarea>
           </div>
         </div>
@@ -391,11 +408,6 @@ add "request an interview" option?
           </div>
 
           <div class="col-6">
-            <label for="soundNotes">Anything specific regarding venue sound?</label>
-            <textarea id="soundNotes" name="soundNotes"></textarea>
-          </div>
-
-          <div class="col-6">
             <label for="houseGearNotes">Any notes on the condition of the house gear?</label>
             <input id="houseGearNotes" name="houseGearNotes" type="text" />
           </div>
@@ -406,6 +418,16 @@ add "request an interview" option?
               <label class="radio-label"><input type="radio" name="respectedByTech" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="respectedByTech" value="no" /> No</label>
             </div>
+          </div>
+
+          <div class="col-4">
+            <label for="soundName">Optionally, what was the name of your sound tech(s)?</label>
+            <input id="soundName" name="soundName" type="text" />
+          </div>
+
+          <div class="col-6">
+            <label for="soundNotes">Anything specific you'd like to share regarding venue sound?</label>
+            <textarea id="soundNotes" name="soundNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -424,11 +446,6 @@ add "request an interview" option?
               <option value="2">2 — Poor</option>
               <option value="1">1 — Very poor</option>
             </select>
-          </div>
-
-          <div class="col-6">
-            <label for="hospitalityNotes">Anything specific you'd like to share regarding hospitality?</label>
-            <textarea id="hospitalityNotes" name="hospitalityNotes"></textarea>
           </div>
 
           <div class="col-4">
@@ -462,8 +479,13 @@ add "request an interview" option?
           </div>
 
           <div class="col-6">
-            <label for="compTickets">How many comp tickets / guest list spots were you given?</label>
+            <label for="compTickets">How many comp tickets and/or guest-list spots were you given?</label>
             <input id="compTickets" name="compTickets" type="text" />
+          </div>
+
+          <div class="col-6">
+            <label for="hospitalityNotes">Anything specific you'd like to share regarding hospitality?</label>
+            <textarea id="hospitalityNotes" name="hospitalityNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -485,11 +507,6 @@ add "request an interview" option?
           </div>
 
           <div class="col-6">
-            <label for="overallNotes">Anything you'd like to share about your overall experience?</label>
-            <input id="overallNotes" name="overallNotes" type="text" />
-          </div>
-
-          <div class="col-6">
             <label>Would you play this venue again?</label>
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="playAgain" value="yes" /> Yes</label>
@@ -505,6 +522,11 @@ add "request an interview" option?
               <label class="radio-label"><input type="radio" name="recommend" value="no" /> No</label>
               <label class="radio-label"><input type="radio" name="recommend" value="maybe" checked /> Maybe</label>
             </div>
+          </div>
+
+          <div class="col-6">
+            <label for="overallNotes">Any final thoughts you'd like to share about your overall experience?</label>
+            <textarea id="overallNotes" name="overallNotes"></textarea>
           </div>
         </div>
       </fieldset>
@@ -533,6 +555,14 @@ add "request an interview" option?
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="canContact" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label>Would you like to join our mailing list for further updates on this project?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="mailingList" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="mailingList" value="no" checked /> No</label>
             </div>
           </div>
         </div>
@@ -619,6 +649,14 @@ add "request an interview" option?
               <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
             </div>
           </div>
+
+          <div class="col-12">
+            <label>Would you like to join our mailing list for further updates on this project?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="mailingList" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="mailingList" value="no" checked /> No</label>
+            </div>
+          </div>
         </div>
       </fieldset>
 
@@ -671,9 +709,16 @@ add "request an interview" option?
             </select>
           </div>
 
-          <div class="col-6">
-            <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
-            <textarea id="safetyNotes" name="safetyNotes"></textarea>
+          <div class="col-12">
+            <label for="accessibilityRating">Accessibility Rating (parking, wheelchair access, masks/earplugs, nursing room, etc.)</label>
+            <select id="accessibilityRating" name="accessibilityRating">
+              <option value=""> </option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Good</option>
+              <option value="3">3 — Okay</option>
+              <option value="2">2 — Poor</option>
+              <option value="1">1 — Very poor</option>
+            </select>
           </div>
 
           <div class="col-4">
@@ -702,20 +747,13 @@ add "request an interview" option?
             </div>
           </div>
 
-          <div class="col-12">
-            <label for="accessibilityRating">Accessibility Rating (parking, wheelchair access, masks/earplugs, nursing room, etc.)</label>
-            <select id="accessibilityRating" name="accessibilityRating">
-              <option value=""> </option>
-              <option value="5">5 — Excellent</option>
-              <option value="4">4 — Good</option>
-              <option value="3">3 — Okay</option>
-              <option value="2">2 — Poor</option>
-              <option value="1">1 — Very poor</option>
-            </select>
+          <div class="col-6">
+            <label for="safetyNotes">Anything specific you'd like to share regarding venue safety?</label>
+            <textarea id="safetyNotes" name="safetyNotes"></textarea>
           </div>
 
           <div>
-            <label for="accessibilityNotes" style="margin-top:0.6rem; display:block;">Anything specific you'd like to share regarding accessibility?</label>
+            <label for="accessibilityNotes">Anything specific you'd like to share regarding accessibility?</label>
             <textarea id="accessibilityNotes" name="accessibilityNotes"></textarea>
           </div>
         </div>
@@ -786,6 +824,14 @@ add "request an interview" option?
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="canContact" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label>Would you like to join our mailing list for further updates on this project?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="mailingList" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="mailingList" value="no" checked /> No</label>
             </div>
           </div>
         </div>
@@ -870,6 +916,14 @@ add "request an interview" option?
             <div class="inline-row">
               <label class="radio-label"><input type="radio" name="canContact" value="yes" /> Yes</label>
               <label class="radio-label"><input type="radio" name="canContact" value="no" checked /> No</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label>Would you like to join our mailing list for further updates on this project?</label>
+            <div class="inline-row">
+              <label class="radio-label"><input type="radio" name="mailingList" value="yes" /> Yes</label>
+              <label class="radio-label"><input type="radio" name="mailingList" value="no" checked /> No</label>
             </div>
           </div>
         </div>
