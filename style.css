@@ -70,7 +70,6 @@
 
   p {
     margin-top: 1.5rem;
-    overflow: visible;
     white-space: nowrap;
   }
 
@@ -115,6 +114,11 @@ body {
   color: #282120;
   background-color: #fcf7f0;
   margin: 0.5rem;
+}
+
+iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
 }
 
 
