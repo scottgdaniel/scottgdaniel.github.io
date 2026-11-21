@@ -6,12 +6,30 @@
     margin-bottom: 3.5rem;
   }
 
+  #content-wrap-recent-work p {
+    margin-top: 0rem;
+    line-height: 1rem;
+  }
+
+  #forthcoming p {
+    font-size: 0.8rem;
+    line-height: 0.5rem;
+  }
+
+  #touring p {
+  }
+
+  #other p {
+    font-size: 0.9rem;
+    line-height: 0.5rem;
+  }
+
   p {
     margin-top: 2rem;
     line-height: 1.4rem;
   }
 
-  h2, p {
+  h2, h3, h4, p {
     margin-left: 15rem;
     margin-right: 15rem;
   }
@@ -31,11 +49,30 @@
     margin-bottom: 2.5rem;
   }
 
+  #content-wrap-recent-work p {
+    margin-top: 0rem;
+    line-height: 1rem;
+  }
+
+  #forthcoming p {
+    font-size: 0.8rem;
+    line-height: 0.5rem;
+  }
+
+  #touring p {
+    line-height: 0.5rem;
+  }
+
+  #other p {
+    font-size: 0.9rem;
+    line-height: 0.5rem;
+  }
+
   p {
     margin-top: 1.5rem;
   }
 
-  h2, p {
+  h2, h3, h4, p {
     margin-left: 2rem;
     margin-right: 2rem;
   }
@@ -87,6 +124,10 @@ body {
 
 #content-wrap {
   min-height: calc(100vh - 1rem - 2.5rem - 3.5rem);
+}
+
+#contact {
+  text-align: center;
 }
 
 #footer {
